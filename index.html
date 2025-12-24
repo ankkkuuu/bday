@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>HBD Babyboo 💗</title>
+    <link type="text/css" rel="stylesheet" href="./file/default.css">
+
+    <style>
+        /* SCROLLBAR RESTORATION: Sets overflow back to auto, allowing scrolling */
+        html, body {
+            overflow: auto; /* Restored to default/auto */
+        }
+        
+        @font-face {
+            font-family: 'SanFrancisco';
+            src: local('SF Pro Display'), local('SF Pro Text'), local('San Francisco');
+        }
+        body, #code .say {
+            font-family: 'SanFrancisco', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 24px; /* Increased font size */
+        }
+        
+        /* --- TIMER VISIBILITY AND STYLING (Boxed Right Side) --- */
+        #clock-box {
+            display: none !important; /* CRITICAL: HIDES TIMER ON LOAD */
+            position: absolute; /* Absolute positioning relative to #main */
+            top: 50px; 
+            right: 50px; 
+            width: 350px; 
+            padding: 15px; 
+            text-align: center;
+            z-index: 999; 
+            background-color: rgba(255, 255, 255, 0.1); 
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        #clock-box.visible {
+            display: block !important; /* SHOWS TIMER ON CLICK */
+        }
+        #clock {
+            font-size: 24px; 
+            font-weight: 700;
+            color: #ffffff !important; 
+            background: none; 
+            padding: 0;
+            margin: 0;
+            display: block;
+        }
+        /* Specific style for the "Together Since" header */
+        #clock:before {
+            content: "Together Since:";
+            display: block;
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #FFC0CB;
+        }
+
+        /* Flip Card Styles */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            /* MOVED UP FURTHER: Reduced margin-top significantly */
+            margin-top: 0px; 
+        }
+        .flip-card {
+            background-color: transparent;
+            /* EVEN BIGGER: Increased size from 220px/280px */
+            width: 240px; 
+            height: 300px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .flip-card-front {
+            background: #f3f3f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 600;
+            border: 2px solid #ddd;
+            color: black; /* Text color is black */
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        .flip-card-back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
+    <script type="text/javascript" src="./file/jquery.min.js"></script>
+    <script type="text/javascript" src="./file/jscex.min.js"></script>
+    <script type="text/javascript" src="./file/jscex-parser.js"></script>
+    <script type="text/javascript" src="./file/jscex-jit.js"></script>
+    <script type="text/javascript" src="./file/jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="./file/jscex-async.min.js"></script>
+    <script type="text/javascript" src="./file/jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="./file/functions.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./file/love.js" charset="utf-8"></script>
+    <script>
+        function playAudio() {
+            var audio = document.getElementById("myAudio");
+            audio.play();
+        }
+    </script>
+</head>
+<body>
+    <div id="main">
+        <div id="error"><a href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a> (<a href="http://firefox.com.cn/download/">Firefox</a>)</div>
+        <audio autoplay="autoplay" height="100" width="100" id="myAudio">
+            <source src="aud.mp3" type="audio/mp3" />
+            <embed height="100" width="100" src="aud.mp3" />
+        </audio>
+        <div id="wrap">
+            <div id="text">
+                <div id="code">
+                    <span class="say">My babyyybooo💗</span><br>
+                    <span class="say">Happiest Birthdayyyyy🎂</span><br>
+                    <span class="say">May god bless you✨</span><br>
+                    <span class="say">You are the biggest gift I have ever received💕</span><br>
+                    <span class="say">I feel luckiest to be your boyfriend.</span><br>
+                    <span class="say">I love you soooo soooo muchhh❤️</span><br>
+                    <span class="say">And I will always be by your side.</span><br>
+                    <span class="say">Have a great year ahead, my love🤗</span><br>
+                    <span class="say">-your Booboo :3</span><br>
+                </div>
+            </div>
+            
+            <canvas id="canvas" width="1100" height="680"></canvas>
+        </div>
+        
+        <div id="clock-box">
+            <span id="clock">Loading 'Together Since' timer...</span>
+        </div>
+        
+    </div>
+
+    <script>
+    (function() {
+        var canvas = $('#canvas');
+        if (!canvas[0].getContext) {
+            $("#error").show();
+            return false;
+        }
+        var width = canvas.width();
+        var height = canvas.height();
+        canvas.attr("width", width);
+        canvas.attr("height", height);
+
+        var opts = {
+            seed: { x: width / 2 - 20, color: "rgb(190, 26, 37)", scale: 2 },
+            branch: [],
+            bloom: { num: 700, width: 1080, height: 650 },
+            footer: { width: 1200, height: 5, speed: 10 }
+        };
+
+        var tree = new Tree(canvas[0], width, height, opts);
+        var seed = tree.seed;
+        var foot = tree.footer;
+        var hold = 1;
+
+        canvas.click(function(e) {
+            playAudio();
+            var offset = canvas.offset(), x, y;
+            x = e.pageX - offset.left;
+            y = e.pageY - offset.top;
+            if (seed.hover(x, y)) {
+                // Show the timer box on click
+                $('#clock-box').addClass('visible');
+                
+                hold = 0;
+                canvas.unbind("click");
+                canvas.unbind("mousemove");
+                canvas.removeClass('hand');
+            }
+        }).mousemove(function(e) {
+            var offset = canvas.offset(), x, y;
+            x = e.pageX - offset.left;
+            y = e.pageY - offset.top;
+            canvas.toggleClass('hand', seed.hover(x, y));
+        });
+
+        var seedAnimate = eval(Jscex.compile("async", function () {
+            seed.draw();
+            while (hold) { $await(Jscex.Async.sleep(10)); }
+            while (seed.canScale()) { seed.scale(0.95); $await(Jscex.Async.sleep(10)); }
+            while (seed.canMove()) { seed.move(0, 2); $await(Jscex.Async.sleep(10)); } 
+        }));
+
+        var growAnimate = eval(Jscex.compile("async", function () {
+            do { tree.grow(); $await(Jscex.Async.sleep(10)); } while (tree.canGrow());
+        }));
+
+        var flowAnimate = eval(Jscex.compile("async", function () {
+            do { tree.flower(2); $await(Jscex.Async.sleep(10)); } while (tree.canFlower());
+        }));
+
+        var moveAnimate = eval(Jscex.compile("async", function () {
+            tree.snapshot("p1", 240, 0, 610, 680);
+            while (tree.move("p1", 500, 0)) { $await(Jscex.Async.sleep(10)); } 
+            tree.snapshot("p2", 500, 0, 610, 680);
+            canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+            canvas.css("background", "#ffe");
+            $await(Jscex.Async.sleep(300));
+            canvas.css("background", "none");
+        }));
+
+        var textAnimate = eval(Jscex.compile("async", function () {
+            $("#code").show().typewriter();
+        }));
+
+        var runAsync = eval(Jscex.compile("async", function () {
+            $await(seedAnimate());
+            $await(growAnimate());
+            $await(flowAnimate());
+            $await(moveAnimate());
+            textAnimate().start();
+        }));
+
+        runAsync().start();
+    })();
+    </script>
+
+
+    <script>
+        // Start date: August 14th, 2025
+        var startDate = new Date("August 14, 2025 00:00:00").getTime();
+        
+        var pad = function(num) { return (num < 10 ? '0' : '') + num; };
+
+        function updateTimer() {
+            var now = new Date().getTime();
+            var distance = now - startDate;
+
+            var clockElement = document.getElementById("clock");
+
+            if (distance < 0) {
+                var futureDays = Math.floor(Math.abs(distance) / (1000 * 60 * 60 * 24));
+                clockElement.innerHTML = "Starting in " + futureDays + " days!";
+                return;
+            }
+
+            var seconds = Math.floor(distance / 1000);
+            var minutes = Math.floor(seconds / 60);
+            var hours = Math.floor(minutes / 60);
+            var days = Math.floor(hours / 24);
+
+            hours %= 24;
+            minutes %= 60;
+            seconds %= 60;
+            
+            // Stacked timer output using <br>
+            clockElement.innerHTML = 
+                days + " Days<br>" + 
+                pad(hours) + " Hours<br>" + 
+                pad(minutes) + " Minutes<br>" + 
+                pad(seconds) + " Seconds";
+        }
+
+        // Timer starts running immediately on page load
+        $(document).ready(function() {
+             updateTimer();
+             setInterval(updateTimer, 1000);
+        });
+    </script>
+
+<div class="card-container">
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">Tap Me 💗</div>
+            <div class="flip-card-back"><img src="./img4.jpg"></div>
+        </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">Tap Me 💗</div>
+            <div class="flip-card-back"><img src="./img5.jpg"></div>
+        </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">Tap Me 💗</div>
+            <div class="flip-card-back"><img src="./img6.jpg"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
